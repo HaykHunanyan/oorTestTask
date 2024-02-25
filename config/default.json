@@ -1,0 +1,4 @@
+{
+    "port":5050,
+    "mongodbUrl":"mongodb+srv://haykhunaa:uNU38N9kmpFO0FEB@cluster0.bxfvdnq.mongodb.net/oorTestTask?retryWrites=true&w=majority"
+}

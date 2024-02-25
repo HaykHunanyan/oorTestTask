@@ -1,0 +1,176 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Location API",
+    "version": "1.0.0"
+  },
+  "basePath": "/",
+  "paths": {
+    "/api/locations": {
+      "get": {
+        "summary": "Get paginated list of locations based on category",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "The category of locations to be retrieved",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number for pagination",
+            "required": false,
+            "type": "integer",
+            "default": 1
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "Number of locations per page",
+            "required": false,
+            "type": "integer",
+            "default": 10
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of locations within the specified category",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Location"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update location documents by category",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "description": "The category of locations to be updated",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful",
+            "schema": {
+              "$ref": "#/definitions/UpdateResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/api/locations/{location_id}": {
+      "get": {
+        "summary": "Get details of a specific location by ID",
+        "parameters": [
+          {
+            "name": "location_id",
+            "in": "path",
+            "description": "ID of the location to retrieve",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detailed information about the specific location",
+            "schema": {
+              "$ref": "#/definitions/Location"
+            }
+          },
+          "404": {
+            "description": "Location not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a location document by its ID",
+        "parameters": [
+          {
+            "name": "location_id",
+            "in": "path",
+            "description": "ID of the location to update",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Location updated successfully",
+            "schema": {
+              "$ref": "#/definitions/UpdateResponse"
+            }
+          },
+          "404": {
+            "description": "Location not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a location document by its ID",
+        "parameters": [
+          {
+            "name": "location_id",
+            "in": "path",
+            "description": "ID of the location to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Location deleted successfully"
+          },
+          "404": {
+            "description": "Location not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Location": {
+      "type": "object",
+      "properties": {
+        "location_id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "rating": { "type": "number" },
+        "review_count": { "type": "number" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" }
+      }
+    },
+    "UpdateResponse": {
+      "type": "object",
+      "properties": {
+        "message": { "type": "string" },
+        "affectedDocuments": { "type": "integer" }
+      }
+    }
+  }
+}

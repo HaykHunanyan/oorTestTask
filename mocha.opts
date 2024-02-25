@@ -1,0 +1,4 @@
+--require esm
+--experimental-vm-modules
+--recursive
+--timeout 5000
